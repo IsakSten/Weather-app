@@ -1,0 +1,56 @@
+body {
+    background: white;
+    font-family: 'EB Garamond', serif;
+}
+
+#top-text {
+    font-size: 60px;
+    text-align: center;
+}
+#second-text {
+    text-align: center;
+}
+
+
+#weather-info {
+    position: absolute;
+    width: 15rem;
+    height: 15rem;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#weather-today-icon {
+    position: absolute;
+    margin-top: -3rem;
+
+}
+
+#weather-info p {
+    font-size: 25px;
+}
+
+#weather-text {
+    position: relative;
+    top: 5rem;
+    width: 25rem;
+    text-align: center;
+}
+
+#bottom-text {
+    position: absolute;
+    width: 100vw;
+    height: 4rem;
+    bottom: -14rem;
+    text-align: center;
+    background-color: rgb(223, 223, 223);
+}
+
+#bottom-text p {
+    font-size: large;
+}
