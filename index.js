@@ -52,38 +52,39 @@ const weatherTypes = {
     'sleetandthunder': 'Weather Icons/weathericon/png/sleetandthunder.png'
 }
 
-
-const API_URL = "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=60.10&lon=10"
-
-fetch (API_URL)
-    .then(response => {
-        if (response.ok) {
-            // API-kallet er vellykket
-            return response.json()
-        };
+const getWeatherData = async () => {
+    try {
+        // sjekker om posisjonen blir gitt, hvis ikke så gir den en error
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject); 
+      });
+  
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+  
+      const API_URL = `https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=${lat}&lon=${lon}`;
+      
+      const response = await fetch(API_URL);
+      if (!response.ok) {
         throw new Error('FEIL: API-kallet returnerte statuskode ' + response.status);
-    })
-    .then(data => {
-        console.log(data);
-
-    
-        // Se etter været sin symbol_code i json formatet
-        let weatherSymbolCode = data.properties.timeseries[0].data.next_1_hours.summary.symbol_code
-
-        // se etter link i weatherTypes dictionarien
-        let weatherIconURL = weatherTypes[weatherSymbolCode];
-        console.log(`your weather is ${weatherSymbolCode}`)
-        
-        // send bilde og navn på været til html siden
-        document.getElementById('weather-today-icon').innerHTML = `<img src="${weatherIconURL}" width="200rem" height="200rem">`
-        document.getElementById('weather-text').innerHTML = `<p>Your weather is ${weatherSymbolCode}</p>`
-
-    })
-    .catch(error => {
-        console.log(error)
-    });
-
-    
-
-
-
+      }
+  
+      const data = await response.json();
+      console.log(data);
+  
+      const temperature = data.properties.timeseries[0].data.instant.details.air_temperature
+      const weatherSymbolCode = data.properties.timeseries[0].data.next_1_hours.summary.symbol_code;
+      const weatherIconURL = weatherTypes[weatherSymbolCode];
+      
+      console.log(`Your temperature is ${temperature} degrees`)
+      console.log(`Your weather is ${weatherSymbolCode}`);
+      
+      document.getElementById('weather-today-icon').innerHTML = `<img src="${weatherIconURL}" width="200rem" height="200rem">`;
+      document.getElementById('weather-text').innerHTML = `<p>Your weather is ${weatherSymbolCode}</p>`;
+      document.getElementById('weather-temp').innerHTML = `<p>${temperature} C°</p>`;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  getWeatherData();
