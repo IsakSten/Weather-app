@@ -1,6 +1,7 @@
 body {
     background: white;
     font-family: 'EB Garamond', serif;
+    background-color: lightblue;
 }
 
 
@@ -21,7 +22,7 @@ body {
     width: 15rem;
     height: 13rem;
     border: 1px solid gray;
-    background-color: rgb(230, 230, 250);
+    background-color: white;
     box-shadow: 3.3px 6.6px 6.6px hsl(0deg 0% 0% / 0.40);
     border-radius: 15px;
     margin-top: 5rem;
@@ -56,8 +57,7 @@ body {
     width: 15rem;
     height: 10rem;
     border: 1px solid gray;
-    background-color: rgb(230, 230, 250);
-    
+    background-color: white;
     border-radius: 15px;
     text-align: center;
     margin-left: auto;
@@ -77,6 +77,7 @@ body {
     bottom: -14rem;
     text-align: center;
     background-color: rgb(223, 223, 223);
+    left: 0;
 }
 
 #bottom-text p {
